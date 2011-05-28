@@ -1,4 +1,5 @@
 #include <cstdlib> // For some useful functions such as atexit :)
+#include <string>
 #include "SDL.h" // main SDL header
 #include "SDL_image.h" // image library, if your only using BMP's, get ride of this.
 
@@ -7,6 +8,8 @@
 #define COLORKEY 255, 0, 255 //Your Transparent colour
 
 SDL_Surface *screen; //This pointer will reference the backbuffer
+
+using std::string;
 
 //I have set the flag SDL_SWSURFACE for a window :)
 bool InitVideo(Uint32 flags = SDL_DOUBLEBUF | SDL_SWSURFACE) {
@@ -28,7 +31,7 @@ bool InitVideo(Uint32 flags = SDL_DOUBLEBUF | SDL_SWSURFACE) {
 }
 
 //--------------------------- Drawing Stuff -------------------------
-SDL_Surface* LoadImage(char *file, int &exitstate) {
+SDL_Surface* LoadImage(const char *file, int &exitstate) {
     SDL_Surface *tmp;
     tmp = IMG_Load(file);
     exitstate = false;
@@ -57,7 +60,8 @@ void DrawImage(SDL_Surface *srcimg, int sx, int sy, int sw, int sh, SDL_Surface 
 int main() {
     int res = 0; //Results
     if (InitVideo() == false) return 1;
-    SDL_Surface *tux = LoadImage("kul.bmp",res);
+    string img_file = "kul.bmp";
+    SDL_Surface *tux = LoadImage(img_file.c_str(), res);
     if (res == false) return 1;
     DrawImage(tux, 0,0, tux->w, tux->h, screen, 10, 10, 128);
     SDL_Flip(screen); //Refresh the screen
