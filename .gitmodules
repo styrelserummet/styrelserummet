@@ -1,0 +1,3 @@
+[submodule "chipmunk-physics"]
+	path = chipmunk-physics
+	url = https://github.com/xavierjurado/chipmunk-physics.git

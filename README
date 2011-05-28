@@ -8,3 +8,25 @@ make
 
 Kör:
 ./styrelserummet
+
+
+chipmunk-physics
+----------------
+Är installerat som en git submodule och pekar på
+https://github.com/xavierjurado/chipmunk-physics
+som i sin tur är en klon på det riktigta reposet som ligger på
+http://code.google.com/p/chipmunk-physics/
+
+Initiera submodul:
+git submodule init
+
+Uppdatera submodul:
+git submodule update
+
+Installera dessa paket om du kör Ubuntu:
+cmake freeglut3-dev libxmu-dev libxi-dev
+
+Kompilera:
+cd chipmunk-physics
+cmake CMakeLists.txt
+make
