@@ -4,14 +4,12 @@
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
-#define true 1
-#define false 0 //You might have to declaire True and False.
 #define COLORKEY 255, 0, 255 //Your Transparent colour
 
 SDL_Surface *screen; //This pointer will reference the backbuffer
 
 //I have set the flag SDL_SWSURFACE for a window :)
-int InitVideo(Uint32 flags = SDL_DOUBLEBUF | SDL_SWSURFACE) {
+bool InitVideo(Uint32 flags = SDL_DOUBLEBUF | SDL_SWSURFACE) {
     // Load SDL
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         fprintf(stderr, "Unable to initialize SDL: %s\n", SDL_GetError());
