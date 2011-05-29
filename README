@@ -1,10 +1,11 @@
-styrelserummets spelprojekt
+styrelserummet's (board room's) game project
 
-Installera dessa paket om du kör Ubuntu:
+Install these packages if you are running Ubuntu:
 g++ libsdl1.2-dev libsdl-image1.2-dev
 
-Kompilera:
+Compile:
 make
 
-Kör:
+Run:
 ./styrelserummet
+
