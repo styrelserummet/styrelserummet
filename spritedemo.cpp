@@ -27,22 +27,32 @@ int main (int argc, char* argv[])
     Sprite* run_right = new Sprite("sprites/boatman_run.bmp", 6, 100);
     run_right->flipHorizontal()->reverseAnimation()->setTransparency(255, 255, 255);
 
-    int posx = 400;
-    int direction = 1;
+    float posx = 400;
+    int direction = -1;
+
+    // Timing variables
+    Uint32 old_time, current_time;
+    float ftime;
+
+    current_time = SDL_GetTicks();
 
     while(running) {
         Sprite *boatman_run;
         // clear background
         SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
 
-        posx += direction;
+        old_time = current_time;
+        current_time = SDL_GetTicks();
+        ftime = (current_time - old_time) / 1000.0f;
+
+        posx += ((50.0f * direction) * ftime);
 
         if (-1 == direction)
             boatman_run = run_left;
         else
             boatman_run = run_right;
 
-        boatman_run->animate()->draw(screen, posx, 35);
+        boatman_run->animate()->draw(screen, floor(posx), 35);
 
         SDL_Flip(screen);
 
