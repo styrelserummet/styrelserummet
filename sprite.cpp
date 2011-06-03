@@ -1,4 +1,4 @@
-#include "Sprite.h"
+#include "sprite.h"
 
 /*
     Sprite library for SDL - using bitmaps

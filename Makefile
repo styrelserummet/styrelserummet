@@ -5,14 +5,16 @@ CFLAGS=$(SDL_CFLAGS)
 LFLAGS=$(SDL_LFLAGS)
 CC=g++ -g
 
-spritedemo: sprite.o main.o
-	$(CC) $(LFLAGS) sprite.o main.o -o spritedemo
+all: spritedemo
 
-main.o: main.cpp Main.h
-	$(CC) $(CFLAGS) -c main.cpp -o main.o
+spritedemo: sprite.o spritedemo.o
+	$(CC) $(LFLAGS) sprite.o spritedemo.o -o spritedemo
 
-sprite.o: Sprite.cpp Sprite.h
-	$(CC) $(CFLAGS) -c Sprite.cpp -o sprite.o
+spritedemo.o: spritedemo.cpp spritedemo.h
+	$(CC) $(CFLAGS) -c spritedemo.cpp -o spritedemo.o
+
+sprite.o: sprite.cpp sprite.h
+	$(CC) $(CFLAGS) -c sprite.cpp -o sprite.o
 
 styrelserummet: styrelserummet.cpp
 	g++ styrelserummet.cpp -o styrelserummet `sdl-config --cflags --libs` -lSDL_image

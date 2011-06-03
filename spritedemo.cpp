@@ -1,4 +1,4 @@
-#include "Main.h"
+#include "spritedemo.h"
 
 using namespace std;
 
