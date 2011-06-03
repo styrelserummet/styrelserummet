@@ -1,17 +1,13 @@
 #!/bin/sh
 set -x
 
-test -e KEb90.gif || wget http://i.imgur.com/KEb90.gif
+test -e BoatMan-MS4.gif || wget http://www.randomhoohaas.flyingomelette.com/Sprites/BoatMan-MS4.gif
+convert BoatMan-MS4.gif boatman.bmp
+convert -crop 30x50+2+0     boatman.bmp boatman_0.bmp
+convert -crop 30x50+33+0    boatman.bmp boatman_1.bmp
+convert -crop 30x50+62+0    boatman.bmp boatman_2.bmp
+convert -crop 30x50+90+0    boatman.bmp boatman_3.bmp
+convert -crop 30x50+118+0   boatman.bmp boatman_4.bmp
+convert -crop 30x50+148+0   boatman.bmp boatman_5.bmp
 
-#for i in `seq -f "%02g" 0 15`
-#do
-#echo $i
-#convert KEb90.gif[$i] image$i.bmp
-#done
-#
-#montage image*.bmp montage.bmp
-
-#montage KEb90.gif[0-15] -geometry 16x16+1+1  tile_0.bmp
-
-montage KEb90.gif[1-14] -tile 14x1 tile_0.bmp
-#montage KEb90.gif[1-14] -background black tile_0.bmp
+montage boatman_[0-5].bmp -tile 6x1 -geometry +0+0 boatman_run.bmp

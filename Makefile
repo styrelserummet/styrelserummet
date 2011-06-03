@@ -6,7 +6,10 @@ SOURCES=spritedemo.cpp sprite.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=spritedemo
 
-all: $(SOURCES) $(EXECUTABLE)
+all: getsprite $(SOURCES) $(EXECUTABLE)
+
+getsprite: sprites/extract_from_gif.sh
+	cd sprites; ./extract_from_gif.sh
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(LDFLAGS) $(OBJECTS) -o $@

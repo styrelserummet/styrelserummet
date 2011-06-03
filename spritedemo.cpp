@@ -12,7 +12,7 @@ int main (int argc, char* argv[])
     // ensure a clean exit
     atexit(SDL_Quit);
     // create a new window
-    SDL_Surface* screen = SDL_SetVideoMode(200, 400, 16,
+    SDL_Surface* screen = SDL_SetVideoMode(800, 600, 16,
             SDL_HWSURFACE|SDL_DOUBLEBUF);
     SDL_WM_SetCaption( "Sprite Example", "Sprite Example" );
     if ( !screen ) {
@@ -21,28 +21,41 @@ int main (int argc, char* argv[])
     }
     SDL_Event keyevent;
 
-    Sprite* s1 = new Sprite("sprites/tile_0.bmp", 14, 60); // load a BMP that contains 14 frames
-    // set the animation speed to 60 milliseconds
-    s1->setTransparency(0, 0, 0);      // set RGB(255,0,255) as transparent
-    // NOTE: setTransparency(SDL_Surface->format->colorkey) also works
+    Sprite* run_left = new Sprite("sprites/boatman_run.bmp", 6, 100);
+    run_left->setTransparency(255, 255, 255);
 
-    Sprite* s2 = new Sprite("sprites/tile_0.bmp", 14, 60);
-    s2->rotate90()->setTransparency(0, 0, 0);
+    Sprite* run_right = new Sprite("sprites/boatman_run.bmp", 6, 100);
+    run_right->flipHorizontal()->reverseAnimation()->setTransparency(255, 255, 255);
+
+    int posx = 400;
+    int direction = 1;
 
     while(running) {
-        // clear background to green
-        SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 255, 0));
+        Sprite *boatman_run;
+        // clear background
+        SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
 
-        s1->animate()->draw(screen, 35, 35);
-        s2->animate()->draw(screen, 35, 200);
+        posx += direction;
+
+        if (-1 == direction)
+            boatman_run = run_left;
+        else
+            boatman_run = run_right;
+
+        boatman_run->animate()->draw(screen, posx, 35);
 
         SDL_Flip(screen);
 
         SDL_PollEvent(&keyevent);
         switch(keyevent.type) {
             case SDL_KEYDOWN:
-                printf("key down\n");
                 switch(keyevent.key.keysym.sym) {
+                    case SDLK_LEFT:
+                        direction = -1;
+                        break;
+                    case SDLK_RIGHT:
+                        direction = 1;
+                        break;
                     case SDLK_ESCAPE:
                         running = false;
                         break;
@@ -57,6 +70,9 @@ int main (int argc, char* argv[])
                 break;
         }
     }
+
+    delete run_left;
+    delete run_right;
 
     return 0;
 }
