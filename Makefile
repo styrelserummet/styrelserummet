@@ -1,25 +1,19 @@
-SDL_CFLAGS=`sdl-config --cflags`
-SDL_LFLAGS=`sdl-config --libs` -lSDL_image
+CC=g++
+CFLAGS=-c -Wall `sdl-config --cflags`
+LDFLAGS=`sdl-config --libs` -lSDL_image
 
-CFLAGS=$(SDL_CFLAGS)
-LFLAGS=$(SDL_LFLAGS)
-CC=g++ -g
+SOURCES=spritedemo.cpp sprite.cpp
+OBJECTS=$(SOURCES:.cpp=.o)
+EXECUTABLE=spritedemo
 
-all: spritedemo
+all: $(SOURCES) $(EXECUTABLE)
 
-spritedemo: sprite.o spritedemo.o
-	$(CC) $(LFLAGS) sprite.o spritedemo.o -o spritedemo
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
 
-spritedemo.o: spritedemo.cpp spritedemo.h
-	$(CC) $(CFLAGS) -c spritedemo.cpp -o spritedemo.o
-
-sprite.o: sprite.cpp sprite.h
-	$(CC) $(CFLAGS) -c sprite.cpp -o sprite.o
-
-styrelserummet: styrelserummet.cpp
-	g++ styrelserummet.cpp -o styrelserummet `sdl-config --cflags --libs` -lSDL_image
+.cpp.o:
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	touch a.o
-	rm -f styrelserummet *.o spritedemo
-
+	touch a.o $(EXECUTABLE)
+	rm -f *.o $(EXECUTABLE)
